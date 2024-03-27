@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Film from '../models/Film';
 
 interface IFilmCardProps {
@@ -6,10 +6,6 @@ interface IFilmCardProps {
 }
 
 const FilmCardComponent = ({film}: IFilmCardProps) => {
-
-    useEffect(() => {
-
-    }, [film])
 
     return (
         <div className="max-w-md mx-auto mt-8">
