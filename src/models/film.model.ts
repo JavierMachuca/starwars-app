@@ -1,4 +1,4 @@
-class Film {
+class FilmModel {
     title: string;
     episode_id: number;
     opening_crawl: string;
@@ -14,7 +14,7 @@ class Film {
     edited: string;
     url: string;
 
-    constructor(data: Partial<Film>) {
+    constructor(data: Partial<FilmModel>) {
         this.title = data.title ?? '';
         this.episode_id = data.episode_id ?? 0;
         this.opening_crawl = data.opening_crawl ?? '';
@@ -32,4 +32,7 @@ class Film {
     }
 }
 
-export default Film;
+export default FilmModel;
+
+export class Film {
+}
