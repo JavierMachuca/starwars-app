@@ -33,7 +33,7 @@ const FilmCardComponent = ({film}: IFilmCardProps) => {
         if (characters && characters.length > 0 && !isLoading) {
             addCharacters(characters)
         }
-    }, [characters, isLoading]);
+    }, [characters, isLoading, addCharacters]);
 
     const handleOnClick = () => {
         getCharacters();
