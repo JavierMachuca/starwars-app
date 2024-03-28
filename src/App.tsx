@@ -6,7 +6,7 @@ import FilmDetailPage from './pages/film-detail.page';
 
 function App() {
     return (
-        <Routes>
+        <Routes location={'/'}>
             <Route path="/" element={<FilmPage/>}/>
             <Route path="/film/:id" element={<FilmDetailPage/>}/>
         </Routes>
