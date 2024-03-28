@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import FilmModel from '../../models/film.model';
 import {useNavigate} from 'react-router-dom';
 import {getMovieImage} from '../../services/tmdb';
-import {AxiosPromise} from 'axios';
 
 interface IFilmCardProps {
     film: FilmModel
