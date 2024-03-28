@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBarItemComponent from './SideBarItem.component';
-import {MovieIcon, PersonIcon} from '../../../shared/icons';
+import {MovieIcon, PersonIcon} from '../../shared/icons';
 
 const SideBarComponent = () => {
   return (

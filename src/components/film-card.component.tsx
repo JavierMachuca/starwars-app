@@ -1,15 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import FilmModel from '../../models/film.model';
+import FilmModel from '../models/film.model';
 import {useNavigate} from 'react-router-dom';
-import {getMovieImage} from '../../services/tmdb';
+import {getMovieImage} from '../services/tmdb';
+import useCharacterStore from '../stores/character.store';
+import {getCharacter} from '../services/characters';
+import CharacterModel from '../models/character.model';
 
 interface IFilmCardProps {
     film: FilmModel
 }
 
 const FilmCardComponent = ({film}: IFilmCardProps) => {
+    const addCharacters = useCharacterStore((state) => state.addCharacters)
+    const setLoading = useCharacterStore((state) => state.setLoading)
+    const isLoading = useCharacterStore((state) => state.isLoading)
+
     const navigate = useNavigate();
     const [image, setImage] = useState<String>('');
+    const [characters, setCharacters] = useState<CharacterModel[] | null>([]);
 
     useEffect(() => {
         getMovieImage(`Star Wars: ${film.title}`)
@@ -23,9 +31,36 @@ const FilmCardComponent = ({film}: IFilmCardProps) => {
         })
     }, [film]);
 
+    useEffect(() => {
+        if (characters && characters.length > 0 && !isLoading) {
+            addCharacters(characters)
+        }
+    }, [characters, isLoading]);
+
     const handleOnClick = () => {
-        navigate('/film/123');
+        setLoading(true)
+        getCharacters();
+        //navigate(`/film/${film.episode_id}`);
     };
+
+    const getCharacters = () => {
+        setLoading(true);
+        const promises = film.characters.map((path: string) => {
+            return getCharacter(path)
+            .then(response => new CharacterModel(response.data))
+            .catch(reason => {
+                console.error('error', reason)
+                return null;
+            });
+        });
+
+        Promise.all(promises)
+        .then(charactersArray    => {
+            setCharacters(charactersArray.filter(character => character !== null) as CharacterModel[]);
+            setLoading(false);
+        });
+    }
+
 
     return (
         <div className="lg:w-1/3 md:w-1/2 sm:w-full  bg-gray-900 rounded-xl shadow-md overflow-hidden flex flex-col">

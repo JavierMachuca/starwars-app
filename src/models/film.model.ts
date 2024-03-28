@@ -33,6 +33,3 @@ class FilmModel {
 }
 
 export default FilmModel;
-
-export class Film {
-}
